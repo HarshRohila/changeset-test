@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   let ENV = {
-    modulePrefix: 'chainset-test',
+    modulePrefix: 'changeset-test',
     environment,
     rootURL: '/',
     locationType: 'auto',
