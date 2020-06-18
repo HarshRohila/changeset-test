@@ -1,0 +1,10 @@
+{{#with (changeset @user) as |user|}}
+    <form>
+        <InputWithLabel @label="Name" @value={{user.name}}/>
+        <InputWithLabel @label="Email" @value={{user.email}}/>
+        <InputWithLabel @label="Age" @value={{@user.age}}/>
+        <InputWithLabel @label="Password" @type="password" @value={{@user.password}} />
+        <InputWithLabel @label="Confirm Password" @type="password" @value={{@user.password}} />
+    </form>
+{{/with}}
+{{yield}}
