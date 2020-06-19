@@ -2,18 +2,23 @@ import {
     validatePresence,
     validateLength,
     validateConfirmation,
-    validateFormat
+    validateFormat,
+    validateNumber
 } from 'ember-changeset-validations/validators';
 
 export default {
     name: [
       validatePresence(true),
       validateLength({ min: 4 })
+    ],  
+    age: [
+        validateNumber({ integer: true }),
+        validateNumber({ gte: 18 }),
+        validateNumber({ lte: 150 })
     ],
-    // age: validateCustom({ foo: 'bar' }),
     email: validateFormat({ type: 'email' }),
     password: [
       validateLength({ min: 8 }),
     ],
-    passwordConfirmation: validateConfirmation({ on: 'password' })
+    confirmPassword: validateConfirmation({ on: 'password' })
 };
