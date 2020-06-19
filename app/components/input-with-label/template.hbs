@@ -1,4 +1,17 @@
-<label>{{@label}}
-    <Input @type={{@type}} @value={{@value}}/>
+<label class={{if this.hasError "error"}}>
+    {{@label}}
+    <input 
+        type={{@type}} 
+        value={{get @user @formObjKey}}
+        onblur={{action "validateProperty" @formObj @formObjKey}}
+        oninput={{action (action "checkValidity" @formObj) value="target.value"}}>
 </label>
+
+{{#if this.hasError}}
+    <ul>
+        {{#each this.errorMsgs as |errorMsg|}}
+            <li>{{errorMsg}}</li>
+        {{/each}}
+    </ul>
+{{/if}}
 {{yield}}

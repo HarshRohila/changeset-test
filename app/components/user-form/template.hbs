@@ -1,10 +1,11 @@
-{{#with (changeset @user) as |user|}}
-    <form>
-        <InputWithLabel @label="Name" @value={{user.name}}/>
-        <InputWithLabel @label="Email" @value={{user.email}}/>
-        <InputWithLabel @label="Age" @value={{@user.age}}/>
-        <InputWithLabel @label="Password" @type="password" @value={{@user.password}} />
-        <InputWithLabel @label="Confirm Password" @type="password" @value={{@user.password}} />
+{{#with (changeset @user this.userValidations) as |user|}}
+    <form {{action "handleSubmit" user on="submit"}}>
+        <InputWithLabel @label="Name" @user={{@user}} @formObj={{user}} @formObjKey="name"/>
+        <InputWithLabel @label="Email" @user={{@user}} @formObj={{user}} @formObjKey="email"/>
+        <InputWithLabel @label="Age" @user={{@user}} @formObj={{user}} @formObjKey="age"/>
+        <InputWithLabel @label="Password" @user={{@user}} @formObj={{user}} @formObjKey="password" @type="password" />
+        <InputWithLabel @label="Confirm Password" @user={{@user}} @formObj={{user}} @formObjKey="confirmPassword" @type="password" />
+        <button type="submit">Submit</button>
     </form>
 {{/with}}
 {{yield}}
