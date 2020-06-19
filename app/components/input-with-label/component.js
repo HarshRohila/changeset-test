@@ -31,18 +31,17 @@ export default class InputWithLabelComponent extends Component {
     }
 
     @action
-    checkValidity(changeset, value) {
-        this._checkValidity.perform(changeset, this.args.formObjKey, value);
+    checkValidity(formObj, value) {
+        this._checkValidity.perform(formObj, this.args.formObjKey, value);
     }
 
-    @(task(function* (changeset, valuePath, value) {
+    @(task(function* (formObj, formObjKey, value) {
         yield timeout(150);
     
-        // valuePath is the property on the changeset, e.g. firstName
-        changeset.set(valuePath, value);
+        formObj.set(formObjKey, value);
     
-        if (!changeset.error[valuePath]) {
-          this.hasError = false;
+        if (!formObj.error[formObjKey]) {
+            this.hasError = false;
         }
     })).restartable() _checkValidity
 }
