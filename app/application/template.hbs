@@ -1,2 +1,5 @@
-<UserForm @user={{this.model}} />
+{{!-- <UserForm @user={{this.model}} /> --}}
+{{#each this.model as |user|}}
+  {{user.name}}
+{{/each}}
 {{outlet}}
