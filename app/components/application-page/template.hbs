@@ -1,0 +1,8 @@
+<form {{action "handleSubmit" on="submit"}}>
+  <Input @type="text" @value={{this.message}} />
+  <input type="submit">
+</form>
+
+{{#each @model as |message|}}
+  {{message.text}}
+{{/each}}
