@@ -9,4 +9,5 @@ export default class Router extends EmberRouter {
 Router.map(function() {
   this.route('changeset');
   this.route('todo');
+  this.route('reqres');
 });

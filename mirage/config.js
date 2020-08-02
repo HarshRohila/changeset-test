@@ -27,4 +27,6 @@ export default function() {
   this.get('/users');
   this.get('/messages');
   this.post('/messages');
+
+  this.passthrough('https://reqres.in/**');
 }
