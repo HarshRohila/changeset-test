@@ -1,4 +1,10 @@
-{{#each this.model as |user|}}
-  {{user.email}}
-{{/each}}
+<LinkTo @route="reqres.create">Create New</LinkTo>
+<ol>
+  {{#each this.model as |user|}}
+    <li>
+      <h3>{{user.name}}</h3>
+      <p>{{user.email}}</p>
+    </li>
+  {{/each}}
+</ol>
 {{outlet}}
