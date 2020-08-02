@@ -1,11 +1,11 @@
 {{#with (changeset @user this.userValidations) as |user|}}
-    <form {{action "handleSubmit" user on="submit"}}>
+    <UserForm::Styled {{action "handleSubmit" user on="submit"}}>
         <InputWithLabel @label="Name" @user={{@user}} @formObj={{user}} @formObjKey="name"/>
         <InputWithLabel @label="Email" @user={{@user}} @formObj={{user}} @formObjKey="email"/>
         <InputWithLabel @label="Age" @user={{@user}} @formObj={{user}} @formObjKey="age"/>
         <InputWithLabel @label="Password" @user={{@user}} @formObj={{user}} @formObjKey="password" @type="password" />
         <InputWithLabel @label="Confirm Password" @user={{@user}} @formObj={{user}} @formObjKey="confirmPassword" @type="password" />
         <button type="submit">Submit</button>
-    </form>
+    </UserForm::Styled>
 {{/with}}
 {{yield}}

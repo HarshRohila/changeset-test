@@ -65,6 +65,7 @@
     "edition": "octane"
   },
   "dependencies": {
+    "ember-styled-components": "0.0.5",
     "faker": "^4.1.0"
   }
 }

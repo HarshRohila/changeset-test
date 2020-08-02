@@ -1,7 +1,0 @@
-form {
-    display: flex;
-    flex-flow: column;
-}
-label.error input {
-    border-color: red;
-}

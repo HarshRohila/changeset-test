@@ -1,11 +1,11 @@
-<label class={{if this.hasError "error"}}>
+<InputWithLabel::Styled @hasError={{this.hasError}}>
     {{@label}}
     <input 
         type={{@type}} 
         value={{get @user @formObjKey}}
         onblur={{action "validateProperty" @formObj @formObjKey}}
         oninput={{action (action "checkValidity" @formObj) value="target.value"}}>
-</label>
+</InputWithLabel::Styled>
 
 {{#if this.hasError}}
     <ul>
