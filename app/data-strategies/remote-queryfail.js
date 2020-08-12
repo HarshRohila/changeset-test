@@ -3,23 +3,23 @@ import { RequestStrategy } from '@orbit/coordinator';
 export default {
   create() {
     return new RequestStrategy({
-      name: 'store-beforeupdate-remote-update',
+      name: 'remote-queryfail',
 
       /**
        * The name of the source to be observed.
        */
-      source: 'store',
+      source: 'remote',
 
       /**
        * The name of the event to observe (e.g. `beforeQuery`, `query`,
        * `beforeUpdate`, `update`, etc.).
        */
-      on: 'beforeUpdate',
+      on: 'queryFail',
 
       /**
        * The name of the source which will be acted upon.
        */
-      target: 'remote',
+      // target: 'TODO',
 
       /**
        * The action to perform on the target.
@@ -28,7 +28,39 @@ export default {
        * invoked in the context of this strategy (and thus will have access to
        * both `this.source` and `this.target`).
        */
-      action: 'update',
+      action(transform, e) {
+        debugger
+        const remote = this.source;
+        const store = this.coordinator.getSource("store");
+        setTimeout(() => {
+          remote.requestQueue.retry();
+        }, 3000);
+
+        if (e instanceof NetworkError) {
+          // When network errors are encountered, try again in 3s
+          console.log("NetworkError - will try again soon");
+          setTimeout(() => {
+            remote.requestQueue.retry();
+          }, 3000);
+        } else {
+          // When non-network errors occur, notify the user and
+          // reset state.
+          let label = transform.options && transform.options.label;
+          if (label) {
+            alert(`Unable to complete "${label}"`);
+          } else {
+            alert(`Unable to complete operation`);
+          }
+
+          // Roll back store to position before transform
+          if (store.transformLog.contains(transform.id)) {
+            console.log("Rolling back - transform:", transform.id);
+            store.rollback(transform.id, -1);
+          }
+
+          return remote.requestQueue.skip();
+        }
+      },
 
       /**
        * A handler for any errors thrown as a result of performing the action.
@@ -66,7 +98,7 @@ export default {
        * invoked in the context of this strategy (and thus will have access to
        * both `this.source` and `this.target`).
        */
-      blocking: false
+      blocking: true
     });
   }
 };
